@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw $50/мес — Полный Сетап с Умной Маршрутизацией</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --accent: #f97316;
+    --accent2: #3b82f6;
+    --accent3: #22c55e;
+    --accent4: #a855f7;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --red: #f85149;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; }
+  
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #1a0a2e 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 60%);
+  }
+  .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--text2); font-size: 1.15rem; max-width: 680px; margin: 0 auto; }
+  .hero .badge-row { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+  .badge { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; }
+  .badge.green { border-color: var(--accent3); color: var(--accent3); }
+  .badge.orange { border-color: var(--accent); color: var(--accent); }
+  .badge.blue { border-color: var(--accent2); color: var(--accent2); }
+  .badge.purple { border-color: var(--accent4); color: var(--accent4); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+  
+  .toc {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .toc h3 { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--text2); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+  .toc a:hover { color: var(--accent); }
+
+  section { margin-bottom: 48px; }
+  h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  h2 .icon { margin-right: 10px; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 24px 0 12px; color: var(--text); }
+  p { color: var(--text2); margin-bottom: 12px; }
+  
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .card-title { font-weight: 700; margin-bottom: 8px; font-size: 1rem; }
+  .card .card-price { font-size: 1.4rem; font-weight: 800; color: var(--accent3); margin-bottom: 6px; }
+  .card .card-price.warning { color: var(--accent); }
+  .card p { font-size: 0.88rem; color: var(--text2); margin: 0; }
+  .card ul { padding-left: 16px; font-size: 0.88rem; color: var(--text2); }
+  .card ul li { margin-bottom: 4px; }
+  
+  .highlight-box {
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .highlight-box.blue {
+    background: rgba(59,130,246,0.08);
+    border-color: rgba(59,130,246,0.3);
+  }
+  .highlight-box.green {
+    background: rgba(34,197,94,0.08);
+    border-color: rgba(34,197,94,0.3);
+  }
+  .highlight-box.red {
+    background: rgba(248,81,73,0.08);
+    border-color: rgba(248,81,73,0.3);
+  }
+  .highlight-box strong { color: var(--text); }
+
+  pre, code {
+    font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+  }
+  code { background: var(--bg3); padding: 2px 6px; border-radius: 4px; font-size: 0.88em; color: #79c0ff; }
+  pre {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    margin: 16px 0;
+    position: relative;
+  }
+  pre .comment { color: #6e7681; }
+  pre .key { color: #79c0ff; }
+  pre .val { color: #a5d6ff; }
+  pre .str { color: #a8ff78; }
+  pre .num { color: #f2cc60; }
+  pre .section-tag { color: var(--accent); font-weight: bold; }
+
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { background: var(--bg3); padding: 10px 14px; text-align: left; border: 1px solid var(--border); color: var(--text); font-weight: 600; }
+  td { padding: 9px 14px; border: 1px solid var(--border); color: var(--text2); }
+  tr:hover td { background: var(--bg2); }
+  .free-tag { color: var(--accent3); font-weight: 700; }
+  .cheap-tag { color: #f2cc60; font-weight: 600; }
+  .mid-tag { color: var(--accent); }
+  .premium-tag { color: var(--red); }
+
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    background: var(--accent);
+    color: #000;
+    font-weight: 800;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+  }
+  .step-content { flex: 1; }
+  .step-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+
+  .budget-total {
+    background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.1));
+    border: 1px solid var(--accent3);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .budget-total .total-label { font-size: 1rem; color: var(--text2); }
+  .budget-total .total-price { font-size: 2.2rem; font-weight: 900; color: var(--accent3); }
+  .budget-total .total-price span { font-size: 1rem; color: var(--text2); font-weight: 400; }
+
+  .arch-diagram {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 0.82rem;
+    color: var(--text2);
+    margin: 20px 0;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  .arch-diagram .hl { color: var(--accent); font-weight: bold; }
+  .arch-diagram .hl2 { color: var(--accent3); font-weight: bold; }
+  .arch-diagram .hl3 { color: var(--accent2); font-weight: bold; }
+  .arch-diagram .hl4 { color: var(--accent4); font-weight: bold; }
+
+  .warning-box {
+    background: rgba(248,81,73,0.08);
+    border: 1px solid rgba(248,81,73,0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: #f2a19b;
+  }
+  .warning-box strong { color: var(--red); }
+  
+  .tip-box {
+    background: rgba(34,197,94,0.06);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 0.9rem;
+    color: var(--text2);
+  }
+
+  .source-links { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .source-links h3 { font-size: 1rem; margin-bottom: 12px; }
+  .source-links a { color: var(--accent2); text-decoration: none; display: block; font-size: 0.88rem; margin-bottom: 6px; }
+  .source-links a:hover { text-decoration: underline; }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .tag { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px; font-size: 0.78rem; color: var(--text2); }
+  
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.9rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .budget-total { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🦞 OpenClaw <span>$50/мес</span> Сетап</h1>
+  <p>Полный гайд по мультиагентной системе с умной маршрутизацией задач по моделям — от бесплатного до бюджетного</p>
+  <div class="badge-row">
+    <span class="badge green">✅ Open Source MIT</span>
+    <span class="badge orange">⚡ Март 2026</span>
+    <span class="badge blue">🧠 Multi-Agent Router</span>
+    <span class="badge purple">💰 $0–50/мес</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h3>📋 Содержание</h3>
+    <ol>
+      <li><a href="#what">Что такое OpenClaw — кратко</a></li>
+      <li><a href="#architecture">Архитектура умной маршрутизации</a></li>
+      <li><a href="#hosting">Хостинг: от $0 до $8/мес</a></li>
+      <li><a href="#models">Модели: бесплатные + дешёвые (таблица)</a></li>
+      <li><a href="#budget">Бюджетные сценарии</a></li>
+      <li><a href="#router">iblai-router — умный роутер задач (open-source)</a></li>
+      <li><a href="#config">Полный openclaw.json с комментариями</a></li>
+      <li><a href="#agents">Настройка агентов под задачи</a></li>
+      <li><a href="#soul">SOUL.md + HEARTBEAT.md шаблоны</a></li>
+      <li><a href="#security">Безопасность и лимиты расходов</a></li>
+      <li><a href="#checklist">Чеклист запуска</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <section id="what">
+    <h2><span class="icon">🦞</span>Что такое OpenClaw</h2>
+    <p>OpenClaw — open-source AI агент-рантайм (MIT лицензия), бывший <strong>Clawdbot / Moltbot</strong>. Создан Питером Штейнбергером в ноябре 2025. За 2 недели набрал 200 000+ GitHub звёзд — один из самых быстрорастущих репозиториев в истории.</p>
+    
+    <div class="highlight-box green">
+      <strong>Суть:</strong> Локальный Gateway на Node.js запускается у тебя и принимает сообщения из WhatsApp/Telegram/Discord/Slack → передаёт в LLM → LLM выполняет инструменты (браузер, shell, файлы, email, API) → отвечает тебе. Всё локально. Модели — внешние API.
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">⚡ Что умеет</div>
+        <ul>
+          <li>Email, календарь, файлы</li>
+          <li>Веб-браузинг, shell-команды</li>
+          <li>Мультиагентная маршрутизация</li>
+          <li>Heartbeat-планировщик (cron)</li>
+          <li>50+ платформ: WA, TG, Discord…</li>
+          <li>Self-modifying skills</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 Ключевые файлы</div>
+        <ul>
+          <li><code>openclaw.json</code> — главный конфиг</li>
+          <li><code>SOUL.md</code> — личность агента</li>
+          <li><code>AGENTS.md</code> — команда агентов</li>
+          <li><code>USER.md</code> — данные о тебе</li>
+          <li><code>HEARTBEAT.md</code> — фоновые задачи</li>
+          <li><code>TOOLS.md</code> — разрешённые инструменты</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🔗 Ссылки</div>
+        <ul>
+          <li><a href="https://github.com/openclaw/openclaw" style="color:var(--accent2)">github.com/openclaw/openclaw</a></li>
+          <li><a href="https://docs.openclaw.ai" style="color:var(--accent2)">docs.openclaw.ai</a></li>
+          <li><a href="https://openrouter.ai/collections/free-models" style="color:var(--accent2)">openrouter.ai/collections/free-models</a></li>
+          <li><a href="https://github.com/iblai/iblai-openclaw-router" style="color:var(--accent2)">github.com/iblai/iblai-openclaw-router</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section id="architecture">
+    <h2><span class="icon">🏗️</span>Архитектура умной маршрутизации</h2>
+    <p>Ключевая идея — <strong>не гонять всё через одну дорогую модель</strong>. Распределяем задачи по сложности и цене.</p>
+
+    <div class="arch-diagram">
+<span class="hl">Ты (Telegram / WhatsApp / Discord)</span>
+         │
+         ▼
+<span class="hl2">OpenClaw Gateway</span> (:18789) — Node.js, локальный, Lane Queue (без race conditions)
+         │
+         ▼
+<span class="hl3">iblai-router / ClawRouter</span> (:8402) — 14-мерный скорер сложности, &lt;1ms
+         │
+         ├── score &lt; 0.0  → <span class="hl4">LIGHT</span>  → OpenRouter :free (Llama 70B / Gemini Flash)
+         │                   Цена: $0.00 | Использовать: приветствия, поиск файлов, погода
+         │
+         ├── score 0.0–0.35 → <span class="hl">MEDIUM</span> → DeepSeek V3.2 / Gemini 2.5 Flash
+         │                   Цена: ~$0.50/M | Использовать: анализ, summary, draft
+         │
+         └── score &gt; 0.35 → <span class="hl2">HEAVY</span>  → Claude Sonnet / Haiku (через API или подписку)
+                             Цена: $1–3/M | Использовать: код, сложная логика, агентные задачи
+
+<span class="hl3">Агентная команда</span> (параллельные воркеры):
+  ├── agent:coordinator  → Claude Haiku / Sonnet (менеджер задач)
+  ├── agent:researcher   → Kimi K2.5 / DeepSeek R1:free (поиск инфы)
+  ├── agent:coder        → DeepSeek V3.2 (код, дешевле x50 Opus)
+  ├── agent:monitor      → GPT-OSS-20B:free (heartbeat, мониторинг)
+  └── agent:writer       → Gemini Flash (тексты, summary)
+
+<span class="hl">Heartbeat каждые 30 мин</span> → Gemini 2.5 Flash-Lite ($0.50/M) = почти $0/мес
+    </div>
+
+    <div class="highlight-box blue">
+      <strong>Главное правило:</strong> Дорогая модель — только для сложных задач. Heartbeats, мониторинг и простые запросы — на бесплатных или Flash-Lite. Это снижает расходы на 50–80% без потери качества.
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section id="hosting">
+    <h2><span class="icon">🖥️</span>Хостинг: от $0 до $8/мес</h2>
+    
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">🏆 Oracle Cloud Free Tier</div>
+        <div class="card-price">$0/мес</div>
+        <p>4 ARM cores, <strong>24 GB RAM</strong>, 200 GB storage — навсегда, без пробного периода. Хватает на OpenClaw + Ollama с 7B моделью. Лучший выбор если пройдёт регистрация.</p>
+        <p style="margin-top:8px; color: var(--red); font-size:0.83rem">⚠️ Регистрация бывает сложной, нужна карта для верификации</p>
+      </div>
+      <div class="card">
+        <div class="card-title">⚡ Hetzner Cloud CX22</div>
+        <div class="card-price">€3.99/мес (~$4)</div>
+        <p>2 vCPU, 4 GB RAM, 40 GB SSD. Самый популярный вариант в комьюнити. Стабильный, быстрый, дешёвый. Идеален для OpenClaw.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🐳 Contabo VPS</div>
+        <div class="card-price">$4.95/мес</div>
+        <p>3 vCPU, 8 GB RAM, 75 GB NVMe + OpenClaw как бесплатный add-on. Больше ресурсов за ту же цену.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">💧 DigitalOcean (One-click)</div>
+        <div class="card-price">$6–20/мес</div>
+        <p>Самый полированный вариант. В Marketplace есть готовый OpenClaw образ: токен, firewall, Docker изоляция — из коробки.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🏠 Свой Mac / Linux / RPi</div>
+        <div class="card-price">$0 (уже есть)</div>
+        <p>OpenClaw Gateway — лёгкий процесс. Работает даже на Raspberry Pi 4 с 4GB RAM для базовых задач. Нужен постоянный интернет.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">☁️ Cloudflare Tunnel</div>
+        <div class="card-price">$0</div>
+        <p>Запускаешь локально + туннель через Cloudflare. Бесплатно, но зависит от твоего железа и интернета.</p>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      💡 <strong>Рекомендация для $50/мес бюджета:</strong> Hetzner CX22 (~$4) + OpenRouter с mix моделей. Остальные $46 — на API токены, которых хватит за глаза при умной маршрутизации.
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section id="models">
+    <h2><span class="icon">🧠</span>Модели: бесплатные + дешёвые</h2>
+    <p>По данным OpenRouter март 2026 — 27+ бесплатных моделей. Лимит: 200 req/день, 20 req/мин на free tier.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Модель</th>
+            <th>Tier</th>
+            <th>Цена (input/output /1M)</th>
+            <th>Лучшее применение</th>
+            <th>Лимиты :free</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>GPT-OSS-120B</strong></td>
+            <td><span class="free-tag">FREE</span></td>
+            <td><span class="free-tag">$0 / $0</span></td>
+            <td>Fallback, мониторинг, summarization</td>
+            <td>200/day, 20/min</td>
+          </tr>
+          <tr>
+            <td><strong>Meta Llama 3.3 70B</strong></td>
+            <td><span class="free-tag">FREE</span></td>
+            <td><span class="free-tag">$0 / $0</span></td>
+            <td>Рассуждения, анализ, multilingual</td>
+            <td>200/day, 20/min</td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek R1</strong></td>
+            <td><span class="free-tag">FREE</span></td>
+            <td><span class="free-tag">$0 / $0</span></td>
+            <td>Сложные рассуждения, исследования</td>
+            <td>200/day, 20/min</td>
+          </tr>
+          <tr>
+            <td><strong>Gemini 2.5 Flash :free</strong></td>
+            <td><span class="free-tag">FREE</span></td>
+            <td><span class="free-tag">$0 / $0</span></td>
+            <td>Быстрые ответы, heartbeat</td>
+            <td>200/day, 20/min</td>
+          </tr>
+          <tr>
+            <td><strong>Google AI Studio (прямо)</strong></td>
+            <td><span class="free-tag">FREE TIER</span></td>
+            <td><span class="free-tag">$0 / $0</span></td>
+            <td>60 req/min, 300K токенов/день!</td>
+            <td>Отдельный API ключ</td>
+          </tr>
+          <tr>
+            <td><strong>Gemini 2.5 Flash-Lite</strong></td>
+            <td><span class="cheap-tag">CHEAP</span></td>
+            <td>$0.50 / $1.00</td>
+            <td>Heartbeat, фоновые задачи, sub-agents</td>
+            <td>Платная, без лимитов</td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek V3.2</strong></td>
+            <td><span class="cheap-tag">CHEAP</span></td>
+            <td>$0.27 / $1.10</td>
+            <td>Код (90% GPT-5 качества за 1/50 цены!)</td>
+            <td>Платная, без лимитов</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Haiku 4.5</strong></td>
+            <td><span class="cheap-tag">CHEAP</span></td>
+            <td>$0.80 / $4.00</td>
+            <td>Tool calling, агентные задачи</td>
+            <td>Платная</td>
+          </tr>
+          <tr>
+            <td><strong>GPT-5-mini / nano</strong></td>
+            <td><span class="cheap-tag">CHEAP</span></td>
+            <td>$0.40 / $1.60</td>
+            <td>Routing, классификация</td>
+            <td>Платная</td>
+          </tr>
+          <tr>
+            <td><strong>Kimi K2.5</strong></td>
+            <td><span class="mid-tag">MID</span></td>
+            <td>$1.00 / $3.00</td>
+            <td>Код, research, агенты</td>
+            <td>Платная</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Sonnet 4.5</strong></td>
+            <td><span class="mid-tag">MID</span></td>
+            <td>$3.00 / $15.00</td>
+            <td>Сложные агентные задачи</td>
+            <td>Платная</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Opus 4.6</strong></td>
+            <td><span class="premium-tag">PREMIUM (избегай как default)</span></td>
+            <td>$15.00 / $75.00</td>
+            <td>Только для очень сложных задач</td>
+            <td>Платная</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Важно про :free модели:</strong> Лимит 200 req/day сбрасывается ежедневно. При превышении — ошибка 429. Для production нужны платные аккаунты с $10+ кредитов на OpenRouter. Бесплатные хороши для разработки и лёгкого использования.
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section id="budget">
+    <h2><span class="icon">💰</span>Бюджетные сценарии</h2>
+
+    <h3>Сценарий A — Почти бесплатный ($0–5/мес)</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Хостинг</div>
+        <div class="card-price">$0</div>
+        <p>Oracle Cloud Free или свой компьютер/Raspberry Pi</p>
+      </div>
+      <div class="card">
+        <div class="card-title">LLM</div>
+        <div class="card-price">$0–3</div>
+        <p>Google AI Studio (300K токенов/день бесплатно) + OpenRouter :free как fallback</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Итого</div>
+        <div class="card-price" style="color:var(--accent3)">~$0–5</div>
+        <p>Лёгкая автоматизация, личный ассистент, эксперименты</p>
+      </div>
+    </div>
+
+    <h3>Сценарий B — Оптимальный ($13–20/мес) ← рекомендую</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Hetzner CX22</div>
+        <div class="card-price">$4</div>
+        <p>Стабильный VPS, быстрый, немецкий дата-центр</p>
+      </div>
+      <div class="card">
+        <div class="card-title">OpenRouter кредиты</div>
+        <div class="card-price">$10–15</div>
+        <p>Mix: Gemini Flash-Lite для heartbeat + DeepSeek V3.2 для задач + Claude Haiku для агентов</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Итого</div>
+        <div class="card-price">~$14–19</div>
+        <p>~100 взаимодействий/день, несколько агентов, автоматизация</p>
+      </div>
+    </div>
+
+    <h3>Сценарий C — Максимальный при $50/мес</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Hetzner CX32</div>
+        <div class="card-price">$8</div>
+        <p>4 vCPU, 8 GB RAM — headroom для браузер-автоматизации</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Claude Подписка</div>
+        <div class="card-price">$20</div>
+        <p>Claude Pro/Max — OAuth-авторизация в OpenClaw, бесплатные токены для Sonnet</p>
+      </div>
+      <div class="card">
+        <div class="card-title">OpenRouter кредиты</div>
+        <div class="card-price">$15–20</div>
+        <p>DeepSeek + Gemini Flash для sub-агентов и heartbeat</p>
+      </div>
+    </div>
+
+    <div class="budget-total">
+      <div>
+        <div class="total-label">💰 Итого Сценарий C (максимум при $50/мес)</div>
+        <div style="color:var(--text2); font-size:0.88rem; margin-top:4px">Hetzner $8 + Claude Pro $20 + OpenRouter $15 = мощная команда агентов</div>
+      </div>
+      <div class="total-price">~$43 <span>/мес</span></div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section id="router">
+    <h2><span class="icon">⚙️</span>iblai-router — Умный роутер задач (Open Source)</h2>
+    <p>Open-source прокси, который анализирует каждый запрос по 14 измерениям и выбирает нужную модель. Работает между OpenClaw и Anthropic API.</p>
+
+    <div class="highlight-box green">
+      <strong>Ссылка:</strong> <a href="https://github.com/iblai/iblai-openclaw-router" style="color:var(--accent2)">github.com/iblai/iblai-openclaw-router</a> — ~250 строк кода, zero deps, горячая перезагрузка конфига
+    </div>
+
+    <h3>Как работает скорер</h3>
+    <div class="arch-diagram">
+Запрос пользователя → iblai-router (:8402) → 14-мерный анализ (&lt;1ms)
+
+<span class="hl">14 измерений:</span>
+  1. Количество токенов          8. Сложность вопроса
+  2. Наличие кода                9. Императивные глаголы  
+  3. Маркеры рассуждений        10. Ограничения/constraints
+  4. Технические термины        11. Формат вывода (JSON, таблица)
+  5. Творческие маркеры         12. Специфика домена
+  6. Простые индикаторы         13. Агентные задачи
+  7. Многошаговые паттерны      14. Relay индикаторы
+
+<span class="hl2">Результат:</span>
+  score &lt; 0.0  → <span class="hl">LIGHT</span>  → Claude Haiku ($1/$5 per 1M)
+  0.0 – 0.35   → <span class="hl3">MEDIUM</span> → Claude Sonnet ($3/$15 per 1M)
+  score &gt; 0.35 → <span class="hl4">HEAVY</span>  → Claude Opus ($15/$75 per 1M)
+
+<span class="hl">Overrides:</span>
+  • 2+ ключевых слова "reasoning/analyze" → HEAVY (0.95 confidence)
+  • >50K токенов в контексте → HEAVY
+  • Низкая уверенность → MEDIUM (безопасный дефолт)
+    </div>
+
+    <h3>Установка</h3>
+    <pre>
+<span class="comment"># Клонируем роутер</span>
+git clone https://github.com/iblai/iblai-openclaw-router
+cd iblai-openclaw-router
+
+<span class="comment"># Запускаем прокси (Node.js, zero dependencies)</span>
+node server.js
+
+<span class="comment"># Проверяем здоровье</span>
+curl http://127.0.0.1:8402/health
+
+<span class="comment"># Тестируем роутинг</span>
+curl http://127.0.0.1:8402/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: test" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{"model":"auto","max_tokens":50,"messages":[{"role":"user","content":"Say hi"}]}' | jq .model
+
+<span class="comment"># Если вернёт "claude-haiku-..." — роутер работает!</span>
+    </pre>
+
+    <h3>Альтернатива — ClawRouter (с OpenRouter вместо Anthropic)</h3>
+    <pre>
+<span class="comment"># BlockRunAI ClawRouter — USDC на Base/Solana, $5 хватает на тысячи запросов</span>
+curl -fsSL https://blockrun.ai/ClawRouter-update | bash
+openclaw gateway restart
+
+<span class="comment"># blockrun/auto — автоматически выбирает из 41+ моделей</span>
+<span class="comment"># GPT-OSS-120B как бесплатный fallback при нулевом балансе</span>
+    </pre>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section id="config">
+    <h2><span class="icon">📝</span>Полный openclaw.json — Бюджетный $50/мес сетап</h2>
+    <p>Конфиг для <code>~/.openclaw/openclaw.json</code> с умной маршрутизацией, несколькими агентами и fallback-цепочкой:</p>
+
+    <pre>
+{
+  <span class="comment">// ─── IDENTITY ─────────────────────────────────────────────────────────</span>
+  <span class="key">"identity"</span>: {
+    <span class="key">"name"</span>: <span class="str">"Coordinator"</span>,
+    <span class="key">"theme"</span>: <span class="str">"efficient task router"</span>,
+    <span class="key">"emoji"</span>: <span class="str">"🦞"</span>
+  },
+
+  <span class="comment">// ─── GATEWAY ──────────────────────────────────────────────────────────</span>
+  <span class="key">"gateway"</span>: {
+    <span class="key">"bind"</span>: <span class="str">"loopback"</span>,   <span class="comment">// БЕЗОПАСНО! Никогда "0.0.0.0"</span>
+    <span class="key">"port"</span>: <span class="num">18789</span>,
+    <span class="key">"maxConcurrent"</span>: <span class="num">4</span>     <span class="comment">// Ограничение параллельных задач</span>
+  },
+
+  <span class="comment">// ─── AUTH PROFILES ────────────────────────────────────────────────────</span>
+  <span class="comment">// Вариант 1: Если есть Claude подписка ($20/мес) → OAuth первым</span>
+  <span class="comment">// Вариант 2: Только API ключи</span>
+  <span class="key">"auth"</span>: {
+    <span class="key">"profiles"</span>: {
+      <span class="key">"anthropic:subscription"</span>: {
+        <span class="key">"mode"</span>: <span class="str">"oauth"</span>,
+        <span class="key">"email"</span>: <span class="str">"YOUR_EMAIL@gmail.com"</span>
+      },
+      <span class="key">"anthropic:api"</span>: {
+        <span class="key">"mode"</span>: <span class="str">"api_key"</span>
+      },
+      <span class="key">"openrouter:default"</span>: {
+        <span class="key">"mode"</span>: <span class="str">"api_key"</span>
+      },
+      <span class="key">"google:aistudio"</span>: {
+        <span class="key">"mode"</span>: <span class="str">"api_key"</span>
+      }
+    },
+    <span class="key">"order"</span>: {
+      <span class="key">"anthropic"</span>: [<span class="str">"anthropic:subscription"</span>, <span class="str">"anthropic:api"</span>],
+      <span class="key">"openrouter"</span>: [<span class="str">"openrouter:default"</span>],
+      <span class="key">"google"</span>: [<span class="str">"google:aistudio"</span>]
+    }
+  },
+
+  <span class="comment">// ─── AGENTS ───────────────────────────────────────────────────────────</span>
+  <span class="key">"agents"</span>: {
+    <span class="key">"defaults"</span>: {
+      <span class="key">"model"</span>: {
+        <span class="comment">// ГЛАВНЫЙ АГЕНТ: Haiku достаточно для координации!</span>
+        <span class="comment">// Если есть Claude подписка — можно поставить sonnet</span>
+        <span class="key">"primary"</span>: <span class="str">"anthropic/claude-haiku-4-5"</span>,
+        <span class="key">"fallbacks"</span>: [
+          <span class="str">"openrouter/google/gemini-2.5-flash-lite"</span>,  <span class="comment">// $0.50/M</span>
+          <span class="str">"openrouter/deepseek/deepseek-chat-v3-2"</span>,   <span class="comment">// $0.27/M</span>
+          <span class="str">"openrouter/meta-llama/llama-3.3-70b-instruct:free"</span>,  <span class="comment">// FREE</span>
+          <span class="str">"openrouter/openai/gpt-oss-120b:free"</span>         <span class="comment">// FREE fallback</span>
+        ]
+      },
+      <span class="comment">// Heartbeat на самую дешёвую платную (надёжнее free)</span>
+      <span class="key">"heartbeat"</span>: {
+        <span class="key">"model"</span>: <span class="str">"openrouter/google/gemini-2.5-flash-lite"</span>,  <span class="comment">// $0.50/M</span>
+        <span class="key">"interval"</span>: <span class="num">1800</span>  <span class="comment">// Каждые 30 минут</span>
+      },
+      <span class="key">"contextPruning"</span>: {
+        <span class="key">"enabled"</span>: true,
+        <span class="key">"cacheTtl"</span>: <span class="num">3600</span>   <span class="comment">// Кэш контекста = экономия токенов</span>
+      }
+    },
+
+    <span class="comment">// ─── КОМАНДА СПЕЦИАЛИЗИРОВАННЫХ АГЕНТОВ ───────────────────────────</span>
+    <span class="key">"list"</span>: [
+      {
+        <span class="key">"id"</span>: <span class="str">"main"</span>,
+        <span class="key">"default"</span>: true,
+        <span class="key">"workspace"</span>: <span class="str">"~/.openclaw/workspace"</span>
+      },
+      {
+        <span class="comment">// RESEARCHER: поиск инфо, веб-скрейпинг</span>
+        <span class="key">"id"</span>: <span class="str">"researcher"</span>,
+        <span class="key">"workspace"</span>: <span class="str">"~/.openclaw/agents/researcher"</span>,
+        <span class="key">"model"</span>: {
+          <span class="key">"primary"</span>: <span class="str">"openrouter/deepseek/deepseek-r1:free"</span>,  <span class="comment">// FREE</span>
+          <span class="key">"fallbacks"</span>: [<span class="str">"openrouter/meta-llama/llama-3.3-70b-instruct:free"</span>]
+        }
+      },
+      {
+        <span class="comment">// CODER: написание кода — DeepSeek x50 дешевле Opus</span>
+        <span class="key">"id"</span>: <span class="str">"coder"</span>,
+        <span class="key">"workspace"</span>: <span class="str">"~/.openclaw/agents/coder"</span>,
+        <span class="key">"model"</span>: {
+          <span class="key">"primary"</span>: <span class="str">"openrouter/deepseek/deepseek-chat-v3-2"</span>,  <span class="comment">// $0.27/M</span>
+          <span class="key">"fallbacks"</span>: [
+            <span class="str">"openrouter/moonshot/kimi-k2.5"</span>,
+            <span class="str">"openrouter/openai/gpt-oss-20b:free"</span>
+          ]
+        }
+      },
+      {
+        <span class="comment">// WRITER: тексты, email, summary</span>
+        <span class="key">"id"</span>: <span class="str">"writer"</span>,
+        <span class="key">"workspace"</span>: <span class="str">"~/.openclaw/agents/writer"</span>,
+        <span class="key">"model"</span>: {
+          <span class="key">"primary"</span>: <span class="str">"openrouter/google/gemini-2.5-flash"</span>,  <span class="comment">// ~$0.75/M</span>
+          <span class="key">"fallbacks"</span>: [<span class="str">"openrouter/meta-llama/llama-3.3-70b-instruct:free"</span>]
+        }
+      },
+      {
+        <span class="comment">// MONITOR: heartbeat, проверка систем — только бесплатные</span>
+        <span class="key">"id"</span>: <span class="str">"monitor"</span>,
+        <span class="key">"workspace"</span>: <span class="str">"~/.openclaw/agents/monitor"</span>,
+        <span class="key">"model"</span>: {
+          <span class="key">"primary"</span>: <span class="str">"openrouter/openai/gpt-oss-120b:free"</span>,  <span class="comment">// FREE</span>
+          <span class="key">"fallbacks"</span>: [<span class="str">"openrouter/google/gemini-2.5-flash-lite"</span>]
+        }
+      }
+    ]
+  },
+
+  <span class="comment">// ─── MODEL ALIASES (для /model команды в чате) ─────────────────────</span>
+  <span class="key">"models"</span>: {
+    <span class="key">"aliases"</span>: {
+      <span class="key">"haiku"</span>: <span class="str">"anthropic/claude-haiku-4-5"</span>,
+      <span class="key">"sonnet"</span>: <span class="str">"anthropic/claude-sonnet-4-5"</span>,
+      <span class="key">"ds"</span>: <span class="str">"openrouter/deepseek/deepseek-chat-v3-2"</span>,
+      <span class="key">"flash"</span>: <span class="str">"openrouter/google/gemini-2.5-flash-lite"</span>,
+      <span class="key">"free"</span>: <span class="str">"openrouter/meta-llama/llama-3.3-70b-instruct:free"</span>,
+      <span class="key">"auto"</span>: <span class="str">"openrouter/openrouter/auto"</span>   <span class="comment">// OpenRouter авто-роутер</span>
+    }
+  },
+
+  <span class="comment">// ─── ЕСЛИ ИСПОЛЬЗУЕШЬ iblai-router ─────────────────────────────────</span>
+  <span class="comment">// Добавь в providers и используй "iblai-router/auto" как primary</span>
+  <span class="key">"models"</span>: {
+    <span class="key">"providers"</span>: {
+      <span class="key">"iblai-router"</span>: {
+        <span class="key">"baseUrl"</span>: <span class="str">"http://127.0.0.1:8402/v1"</span>,
+        <span class="key">"apiKey"</span>: <span class="str">"local"</span>,
+        <span class="key">"api"</span>: <span class="str">"anthropic"</span>
+      }
+    }
+  }
+}
+    </pre>
+  </section>
+
+  <!-- SECTION 8 -->
+  <section id="agents">
+    <h2><span class="icon">👥</span>AGENTS.md — Описание команды</h2>
+    <p>Создай файл <code>~/.openclaw/workspace/AGENTS.md</code>:</p>
+
+    <pre>
+# Agent Team Configuration
+
+## Coordinator (main agent — это ты)
+Твоя роль: координировать задачи и делегировать правильным агентам.
+
+**Правила делегирования:**
+- Веб-поиск, исследования → researcher (бесплатная модель)
+- Написание/рефакторинг кода → coder (DeepSeek V3.2)
+- Тексты, письма, summary → writer (Gemini Flash)
+- Мониторинг систем → monitor (GPT-OSS бесплатно)
+- Сложные рассуждения → сам через /model sonnet
+
+## Как вызывать агентов:
+Используй sessions_send() для передачи задач:
+- "Отправь задачу researcher: найди информацию о..."
+- "Передай coder: напиши функцию для..."
+- "Попроси writer: составь email..."
+
+## Правило экономии:
+Сначала попробуй сделать сам (Haiku).
+Только если задача явно требует — эскалируй к дорогой модели.
+Используй /model sonnet только для действительно сложного.
+    </pre>
+  </section>
+
+  <!-- SECTION 9 -->
+  <section id="soul">
+    <h2><span class="icon">👁️</span>SOUL.md + HEARTBEAT.md</h2>
+    
+    <h3>~/.openclaw/workspace/SOUL.md</h3>
+    <pre>
+# Core Identity
+Я — умный координатор задач. Работаю эффективно, без лишних слов.
+
+# Принципы работы
+- Сначала думаю, потом действую
+- Простые задачи делаю сам, сложные — делегирую
+- Слежу за расходами на токены как за своими деньгами
+- Предупреждаю о потенциально дорогих операциях
+
+# Стиль общения
+- Кратко и по делу. Нет воды.
+- Если ответ в одно предложение — так и отвечаю
+- Технические термины использую точно
+- Честно говорю, когда не знаю
+
+# Правила экономии
+- Heartbeat: только GPT-OSS или Gemini Flash-Lite
+- Sub-agents: DeepSeek V3.2 для кода, Llama :free для research
+- Главный агент: Haiku — достаточно для 80% задач
+- Sonnet/Opus — только если задача явно требует
+
+# Запрещено
+- Никогда не запускаю бесконечные retry loops
+- Не пишу на существующие файлы без подтверждения
+- Не превышаю maxConcurrent=4 задачи
+    </pre>
+
+    <h3>~/.openclaw/workspace/HEARTBEAT.md</h3>
+    <pre>
+# Heartbeat Tasks (каждые 30 минут, модель: Gemini Flash-Lite)
+
+## Приоритет HIGH
+- Проверить новые важные письма (subject содержит: urgent, важно, deadline)
+- Проверить уведомления из CI/CD систем
+
+## Приоритет MEDIUM  
+- Краткая сводка задач на день (только утром, до 10:00)
+- Проверить не забытые задачи из TASKS.md
+
+## Правила heartbeat
+- Если ничего срочного → ответить HEARTBEAT_OK, не беспокоить
+- Не отправлять больше 1 сообщения за heartbeat
+- Использовать максимально дешёвую модель
+    </pre>
+  </section>
+
+  <!-- SECTION 10 -->
+  <section id="security">
+    <h2><span class="icon">🔒</span>Безопасность и лимиты расходов</h2>
+
+    <div class="warning-box">
+      <strong>⚠️ Реальный кейс из комьюнити:</strong> пользователь потратил $47 за одну неделю тестирования. $200+/мес при неконтролируемом использовании. Устанавли лимиты ДО запуска!
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Лимиты расходов у провайдеров</h4>
+          <p>OpenRouter → Settings → Limits → Monthly Budget: $30. Anthropic Console → Limits → $20/мес. Google AI Studio — бесплатный tier не превысить физически.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Безопасный Gateway</h4>
+          <pre style="margin-top:8px">
+<span class="comment"># В openclaw.json</span>
+<span class="key">"gateway"</span>: {
+  <span class="key">"bind"</span>: <span class="str">"loopback"</span>,  <span class="comment">// НЕ "0.0.0.0"!</span>
+  <span class="key">"maxConcurrent"</span>: <span class="num">4</span>   <span class="comment">// Ограничить параллельные задачи</span>
+}
+          </pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Версионирование конфига (git)</h4>
+          <pre style="margin-top:8px">
+cd ~/.openclaw
+git init
+echo 'agents/*/sessions/\n*.log\ncredentials/' > .gitignore
+git add openclaw.json workspace/SOUL.md workspace/AGENTS.md
+git commit -m "config: baseline"
+<span class="comment"># Теперь откат при проблемах: git checkout openclaw.json</span>
+          </pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Мониторинг расходов</h4>
+          <p>OpenRouter Dashboard: <code>openrouter.ai/activity</code> — расходы по агентам в реальном времени. Anthropic Console: <code>console.anthropic.com/settings/usage</code>. Поставь email-алерты при достижении 80% лимита.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Проверка конфига</h4>
+          <pre style="margin-top:8px">
+openclaw doctor --fix
+<span class="comment"># Запускать после каждого изменения openclaw.json!</span>
+openclaw security audit --deep
+          </pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 11 -->
+  <section id="checklist">
+    <h2><span class="icon">✅</span>Чеклист запуска</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Установка OpenClaw</h4>
+          <pre>npm install -g openclaw
+openclaw onboard  <span class="comment"># Wizard проведёт через всё</span></pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Получить API ключи (бесплатно)</h4>
+          <p>• <a href="https://openrouter.ai" style="color:var(--accent2)">openrouter.ai</a> — один ключ для всех моделей<br>
+          • <a href="https://aistudio.google.com" style="color:var(--accent2)">aistudio.google.com</a> — Google AI Studio (300K токенов/день бесплатно)<br>
+          • <a href="https://console.anthropic.com" style="color:var(--accent2)">console.anthropic.com</a> — Anthropic API (опционально)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Установить iblai-router (умная маршрутизация)</h4>
+          <pre>git clone https://github.com/iblai/iblai-openclaw-router
+cd iblai-openclaw-router && node server.js &</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Скопировать конфиг из этого гайда</h4>
+          <pre>nano ~/.openclaw/openclaw.json
+<span class="comment"># Вставить конфиг из секции 7, заменить YOUR_EMAIL</span></pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Создать workspace файлы</h4>
+          <pre>mkdir -p ~/.openclaw/workspace
+<span class="comment"># Создать SOUL.md, AGENTS.md, HEARTBEAT.md из секций 8-9</span></pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h4>Подключить мессенджер</h4>
+          <pre>openclaw channels login  <span class="comment"># Telegram — самый простой</span>
+<span class="comment"># Для Telegram: создать бота через @BotFather, скопировать токен</span></pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <h4>Валидация и запуск</h4>
+          <pre>openclaw doctor --fix
+openclaw gateway start
+<span class="comment"># Написать агенту в Telegram: "Привет, как ты?"</span>
+<span class="comment"># Проверить в каком tier отработал запрос</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box green">
+      <strong>🎯 Итоговый бюджет при умной маршрутизации:</strong><br><br>
+      • Хостинг (Hetzner): <strong>$4/мес</strong><br>
+      • Heartbeat (Gemini Flash-Lite, ~720 вызовов/мес): <strong>~$0.50</strong><br>
+      • Sub-agents (DeepSeek V3.2, ~5M токенов): <strong>~$2.50</strong><br>
+      • Главный агент (Claude Haiku, ~3M токенов): <strong>~$3.50</strong><br>
+      • Сложные задачи (Claude Sonnet, ~500K токенов): <strong>~$2.50</strong><br>
+      • OpenRouter :free моделей для исследований: <strong>$0</strong><br>
+      <br>
+      <strong>Итого: ~$13/мес</strong> при активном использовании. У тебя остаток $37 на резерв или масштабирование!
+    </div>
+  </section>
+
+  <div class="source-links">
+    <h3>📚 Источники (март 2026)</h3>
+    <a href="https://github.com/openclaw/openclaw">github.com/openclaw/openclaw — официальный репозиторий</a>
+    <a href="https://docs.openclaw.ai/concepts/multi-agent">docs.openclaw.ai/concepts/multi-agent — документация multi-agent routing</a>
+    <a href="https://github.com/iblai/iblai-openclaw-router">github.com/iblai/iblai-openclaw-router — умный роутер задач</a>
+    <a href="https://openrouter.ai/collections/free-models">openrouter.ai/collections/free-models — бесплатные модели</a>
+    <a href="https://velvetshark.com/openclaw-multi-model-routing">velvetshark.com/openclaw-multi-model-routing — гайд по экономии 50-80%</a>
+    <a href="https://www.sentisight.ai/how-much-openclaw-cost-per-month/">sentisight.ai/how-much-openclaw-cost-per-month — разбор реальных расходов</a>
+    <a href="https://gist.github.com/digitalknk/ec360aab27ca47cb4106a183b2c25a98/">gist.github.com/digitalknk — OpenClaw runbook от практика</a>
+    <a href="https://dev.to/curi0us_dev/the-best-free-openclaw-setup-for-openrouter-free-models-366g">dev.to — лучший free сетап с OpenRouter :free моделями</a>
+    <a href="https://moltfounders.com/openclaw-configuration">moltfounders.com/openclaw-configuration — полный конфиг-референс</a>
+    <a href="https://www.teamday.ai/blog/top-ai-models-openrouter-2026">teamday.ai/blog/top-ai-models-openrouter-2026 — актуальные модели и цены</a>
+    <a href="https://github.com/BlockRunAI/ClawRouter">github.com/BlockRunAI/ClawRouter — альтернативный роутер</a>
+    <a href="https://sidsaladi.substack.com/p/how-to-set-up-openclaw-the-complete">sidsaladi.substack.com — полный гайд по хостингу</a>
+  </div>
+
+  <div style="text-align:center; color:var(--text2); font-size:0.85rem; margin-top:40px; padding-top:20px; border-top:1px solid var(--border)">
+    Составлено на основе актуальных данных • Март 2026 • Версионируй конфиг через git!
+  </div>
+
+</div>
+</body>
+</html>

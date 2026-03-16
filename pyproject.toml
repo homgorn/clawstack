@@ -1,0 +1,24 @@
+[project]
+name = "clawstack-backend"
+version = "0.1.0"
+description = "Minimal backend for the ClawStack landing and service layer."
+requires-python = ">=3.13"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "uvicorn>=0.30,<1.0",
+]
+
+[project.scripts]
+clawstack-admin = "clawstack_backend.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0,<9.0",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["backend"]

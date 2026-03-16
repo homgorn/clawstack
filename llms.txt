@@ -1,0 +1,25 @@
+# ClawStack
+
+ClawStack is an open-source OpenClaw toolkit with an optional paid setup and managed support layer.
+
+## Primary facts
+
+- Open-source core: configs, docs, workspace templates, starter skills.
+- Paid layer: setup, migration, managed operations, monitoring, support, premium integrations.
+- Future layer: dashboard and hosted SaaS only after real demand proves the need.
+
+## Best source files
+
+- README.md
+- docs/context-map.md
+- docs/roadmap.md
+- OPENCLAW_FINAL_SPEC.md
+
+## Product summary
+
+The repository is the product core.
+The landing page is the conversion layer around three paths:
+
+- DIY Free
+- Pro Setup
+- Managed

@@ -1,0 +1,48 @@
+{
+  "site_name": "ClawStack",
+  "tagline": "Open-source OpenClaw toolkit with optional setup and managed support.",
+  "public_site_url": "https://example.com",
+  "public_api_base": "/api",
+  "public_api_url": "https://example.com/api",
+  "canonical_url": "https://example.com/",
+  "og_image_url": "https://example.com/og-card.svg",
+  "repo_url": "https://github.com/homgorn/clawstack",
+  "contact_email": "hello@example.com",
+  "docs": [
+    { "label": "Repository", "href": "https://github.com/homgorn/clawstack" },
+    { "label": "README", "href": "https://github.com/homgorn/clawstack/blob/main/README.md" },
+    { "label": "Example Setups", "href": "https://github.com/homgorn/clawstack/blob/main/docs/example-setups.md" },
+    { "label": "Context Map", "href": "https://github.com/homgorn/clawstack/blob/main/docs/context-map.md" },
+    { "label": "Roadmap", "href": "https://github.com/homgorn/clawstack/blob/main/docs/roadmap.md" },
+    { "label": "WordPress Option", "href": "https://github.com/homgorn/clawstack/blob/main/docs/wordpress-option.md" }
+  ],
+  "offers": [
+    {
+      "slug": "diy-free",
+      "title": "DIY Free",
+      "price_label": "$0",
+      "summary": "Use the open-source repo as the product core with configs, docs, templates, and starter skills.",
+      "cta_label": "Open Repository",
+      "cta_href": "https://github.com/homgorn/clawstack",
+      "kind": "open-source"
+    },
+    {
+      "slug": "pro-setup",
+      "title": "Pro Setup",
+      "price_label": "Custom quote",
+      "summary": "Done-for-you installation, migration, hardening, and routing setup.",
+      "cta_label": "Request setup",
+      "cta_href": "https://example.com/api/v1/intake",
+      "kind": "service"
+    },
+    {
+      "slug": "managed",
+      "title": "Managed",
+      "price_label": "Monthly",
+      "summary": "Ongoing updates, monitoring, support, and operational help.",
+      "cta_label": "Request managed plan",
+      "cta_href": "https://example.com/api/v1/intake",
+      "kind": "managed"
+    }
+  ]
+}

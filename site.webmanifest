@@ -1,0 +1,17 @@
+{
+  "name": "ClawStack",
+  "short_name": "ClawStack",
+  "description": "OpenClaw cost optimizer, secure deployment toolkit, and optional setup service.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6efe8",
+  "theme_color": "#f26a21",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

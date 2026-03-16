@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16212c" />
+      <stop offset="100%" stop-color="#234048" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f26a21" />
+      <stop offset="100%" stop-color="#ff9e5c" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1020" cy="120" r="180" fill="#f26a21" opacity="0.16" />
+  <circle cx="180" cy="540" r="220" fill="#0d7f7c" opacity="0.12" />
+  <rect x="76" y="72" width="188" height="188" rx="42" fill="url(#accent)" />
+  <text x="128" y="192" fill="#fff8f0" font-family="Segoe UI, Arial, sans-serif" font-size="118" font-weight="800">C</text>
+  <text x="76" y="350" fill="#fff8f0" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="800">ClawStack</text>
+  <text x="76" y="430" fill="#fbd9c3" font-family="Segoe UI, Arial, sans-serif" font-size="38" font-weight="600">
+    OpenClaw cost optimizer and setup service
+  </text>
+  <text x="76" y="502" fill="#ffe9d9" font-family="Segoe UI, Arial, sans-serif" font-size="27">
+    DIY Free • Pro Setup • Managed
+  </text>
+  <text x="76" y="546" fill="#c5dedc" font-family="Segoe UI, Arial, sans-serif" font-size="24">
+    Open-source core first. Frontend for conversion. SaaS later.
+  </text>
+</svg>

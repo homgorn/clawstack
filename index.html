@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ClawStack | OpenClaw Cost Optimizer and Setup Service</title>
+    <meta
+      name="description"
+      content="Open-source OpenClaw toolkit with safer defaults, budget-first configs, structured SEO landing page, and an optional paid setup or managed support layer."
+    >
+    <meta
+      name="keywords"
+      content="OpenClaw setup, OpenClaw cost, OpenClaw security, OpenRouter, self-hosted AI agent, LLM routing, OpenClaw deployment"
+    >
+    <meta name="theme-color" content="#f26a21">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="author" content="ClawStack Contributors">
+    <meta name="clawstack-api-base" content="/api">
+    <link rel="canonical" href="https://homgorn.github.io/clawstack/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ClawStack">
+    <meta property="og:title" content="ClawStack | OpenClaw Cost Optimizer and Setup Service">
+    <meta
+      property="og:description"
+      content="Run OpenClaw with safer defaults, lower spend, and a clean path from open-source self-hosting to setup or managed support."
+    >
+    <meta property="og:url" content="https://homgorn.github.io/clawstack/">
+    <meta property="og:image" content="https://homgorn.github.io/clawstack/og-card.svg">
+    <meta property="og:image:alt" content="ClawStack open-core landing page">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ClawStack | OpenClaw Cost Optimizer and Setup Service">
+    <meta
+      name="twitter:description"
+      content="Open-source OpenClaw toolkit plus optional Pro Setup and Managed support."
+    >
+    <meta name="twitter:image" content="https://homgorn.github.io/clawstack/og-card.svg">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://homgorn.github.io/clawstack/#website",
+            "url": "https://homgorn.github.io/clawstack/",
+            "name": "ClawStack",
+            "description": "Open-source OpenClaw toolkit with setup and managed support options."
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://homgorn.github.io/clawstack/#software",
+            "name": "ClawStack",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Open-source toolkit for lower-cost and safer OpenClaw deployments."
+          },
+          {
+            "@type": "OfferCatalog",
+            "@id": "https://homgorn.github.io/clawstack/#offers",
+            "name": "ClawStack Offers",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "DIY Free",
+                "description": "Self-hosted open-source toolkit."
+              },
+              {
+                "@type": "Offer",
+                "name": "Pro Setup",
+                "description": "Done-for-you installation and migration service."
+              },
+              {
+                "@type": "Offer",
+                "name": "Managed",
+                "description": "Ongoing monitoring, support, and updates."
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://homgorn.github.io/clawstack/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Can ClawStack be used without paying?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The repository is meant to be useful on its own with public configs, docs, workspace templates, and starter skills."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the paid layer for?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The paid layer covers setup, migration, managed operations, monitoring, integrations, and support."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="ClawStack home">
+          <span class="brand-mark">C</span>
+          <span class="brand-text">ClawStack</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#offers">Offers</a>
+          <a href="#stack">Stack</a>
+          <a href="#wordpress">WordPress</a>
+          <a href="#faq">FAQ</a>
+          <a class="nav-cta" href="https://github.com/homgorn/clawstack" data-site-link="repo">GitHub</a>
+        </nav>
+      </header>
+
+      <main id="main">
+        <section class="hero section" id="top">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Open-source core first</p>
+            <h1>OpenClaw landing, packaging, and delivery that is ready for production.</h1>
+            <p class="lead">
+              ClawStack turns the repo into a real product core, then adds a frontend that sells
+              setup and managed support without pretending the SaaS already exists.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/homgorn/clawstack" data-site-link="repo">Open Repository</a>
+              <a class="button button-secondary" href="docs/context-map.md" data-doc-label="Context Map">Context Map</a>
+            </div>
+            <ul class="meta-list">
+              <li>Responsive layout</li>
+              <li>Schema.org structured data</li>
+              <li>Favicon, manifest, robots, sitemap, llms.txt</li>
+            </ul>
+          </div>
+
+          <aside class="hero-panel reveal" aria-label="Offer summary">
+            <div class="panel-card panel-card-accent">
+              <span class="panel-kicker">DIY Free</span>
+              <strong>Configs, docs, workspace templates, starter skills</strong>
+              <p>Useful without paying. No lock-in for baseline self-hosting.</p>
+            </div>
+            <div class="panel-card">
+              <span class="panel-kicker">Pro Setup</span>
+              <strong>Install, migrate, harden, tune</strong>
+              <p>One-time delivery for teams that want speed over trial and error.</p>
+            </div>
+            <div class="panel-card">
+              <span class="panel-kicker">Managed</span>
+              <strong>Updates, monitoring, support</strong>
+              <p>Recurring layer for people who do not want to own operations themselves.</p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section reveal" id="offers">
+          <div class="section-heading">
+            <p class="eyebrow">Offer architecture</p>
+            <h2>Three clear paths make the product easier to explain and easier to buy.</h2>
+          </div>
+          <div class="card-grid">
+            <article class="card card-featured" itemscope itemtype="https://schema.org/Offer" data-offer="diy-free">
+              <p class="card-kicker" data-offer-title>DIY Free</p>
+              <h3 itemprop="name">Open-source product core</h3>
+              <p class="card-price" data-offer-price>$0</p>
+              <p itemprop="description" data-offer-summary>Public configs, workspace templates, docs, starter skills, and a self-hosted path.</p>
+              <a class="button button-primary" href="README.md" data-doc-label="README" data-offer-cta>Read the README</a>
+            </article>
+            <article class="card" itemscope itemtype="https://schema.org/Offer" data-offer="pro-setup">
+              <p class="card-kicker" data-offer-title>Pro Setup</p>
+              <h3 itemprop="name">Setup and migration service</h3>
+              <p class="card-price" data-offer-price>Custom quote</p>
+              <p itemprop="description" data-offer-summary>Use the frontend to sell installation, hardening, routing, and migration work.</p>
+              <a class="button button-secondary" href="#intake" data-service-tier="pro-setup" data-offer-cta>Request setup</a>
+            </article>
+            <article class="card" itemscope itemtype="https://schema.org/Offer" data-offer="managed">
+              <p class="card-kicker" data-offer-title>Managed</p>
+              <h3 itemprop="name">Operations support layer</h3>
+              <p class="card-price" data-offer-price>Monthly</p>
+              <p itemprop="description" data-offer-summary>Monitoring, updates, support, and premium integrations after initial setup.</p>
+              <a class="button button-secondary" href="#intake" data-service-tier="managed" data-offer-cta>Request managed plan</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section reveal" id="stack">
+          <div class="section-heading">
+            <p class="eyebrow">What this frontend is for</p>
+            <h2>Repo as proof, landing as conversion, SaaS later.</h2>
+          </div>
+          <div class="step-grid">
+            <article class="step-card">
+              <span class="step-no">01</span>
+              <h3>Open-core product</h3>
+              <p>The public repository carries the actual value and technical trust.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-no">02</span>
+              <h3>Adaptive marketing layer</h3>
+              <p>This landing explains the product simply, ranks for search, and gives AI tools clean summaries.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-no">03</span>
+              <h3>Service monetization</h3>
+              <p>Revenue comes from setup and managed help before any heavy dashboard build.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-no">04</span>
+              <h3>Hosted product only if demand proves it</h3>
+              <p>The future dashboard should come from repeated customer pain, not guesswork.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section reveal" id="seo">
+          <div class="section-heading">
+            <p class="eyebrow">SEO and AI discoverability</p>
+            <h2>Structured for search engines, AI summaries, and human scanning.</h2>
+          </div>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Technical SEO</h3>
+              <ul>
+                <li>Canonical, robots, sitemap, favicon, manifest</li>
+                <li>Open Graph and Twitter card metadata</li>
+                <li>Clear heading structure and concise copy blocks</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Structured data</h3>
+              <ul>
+                <li>Website, software, offers, and FAQ schema</li>
+                <li>Semantic sections that render well in AI tools</li>
+                <li>`llms.txt` for model-facing summaries</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Commercial clarity</h3>
+              <ul>
+                <li>Open-source promise stays visible</li>
+                <li>Paid layer sells convenience, not hidden basics</li>
+                <li>No fake dashboard claims</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section reveal" id="wordpress">
+          <div class="section-heading">
+            <p class="eyebrow">WordPress path</p>
+            <h2>Static first, WordPress later if you need a CMS or marketing workflow.</h2>
+          </div>
+          <div class="split-grid">
+            <div class="card">
+              <h3>Why it ports cleanly</h3>
+              <p>
+                The landing is built as flat semantic sections, so it can be moved into a page template,
+                block theme layout, or generated page body through WP-CLI or the REST API.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Recommended sequence</h3>
+              <p>
+                Launch the static version first. Move to WordPress only when editor workflows, SEO plugin operations,
+                or content publishing needs justify the extra layer.
+              </p>
+            </div>
+          </div>
+          <p class="inline-link">Integration notes: <a href="docs/wordpress-option.md" data-doc-label="WordPress Option">WordPress deployment option</a></p>
+        </section>
+
+        <section class="section reveal" id="intake">
+          <div class="section-heading">
+            <p class="eyebrow">Service intake</p>
+            <h2>One intake flow is enough for the first paid layer.</h2>
+          </div>
+          <div class="split-grid">
+            <div class="card">
+              <h3>What this form is for</h3>
+              <p>
+                It sends setup and managed requests into the backend intake endpoint. That gives the frontend one
+                stable integration point instead of scattering mailto links and temporary forms across the site.
+              </p>
+            </div>
+            <form class="card intake-form" data-intake-form>
+              <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="field-grid">
+                <label class="field">
+                  <span>Service</span>
+                  <select name="service_tier" required>
+                    <option value="pro-setup">Pro Setup</option>
+                    <option value="managed">Managed</option>
+                    <option value="custom">Custom</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Name</span>
+                  <input type="text" name="name" minlength="2" maxlength="120" required>
+                </label>
+                <label class="field">
+                  <span>Email</span>
+                  <input type="email" name="email" maxlength="255" required>
+                </label>
+                <label class="field">
+                  <span>Company</span>
+                  <input type="text" name="company" maxlength="120">
+                </label>
+              </div>
+              <label class="field">
+                <span>What do you need?</span>
+                <textarea name="message" rows="6" minlength="10" maxlength="4000" required></textarea>
+              </label>
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Send request</button>
+                <p class="status-message" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="section reveal" id="faq">
+          <div class="section-heading">
+            <p class="eyebrow">FAQ</p>
+            <h2>Answer the high-intent questions on the page itself.</h2>
+          </div>
+          <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+            <details class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question" open>
+              <summary itemprop="name">Is this a free product or a paid product?</summary>
+              <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p itemprop="text">The repo is the free product core. Paid offers are setup and managed support layers on top.</p>
+              </div>
+            </details>
+            <details class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+              <summary itemprop="name">Do I need a dashboard immediately?</summary>
+              <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p itemprop="text">No. The first frontend should sell the offer clearly. Dashboard work should come later and only if demand proves it.</p>
+              </div>
+            </details>
+            <details class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+              <summary itemprop="name">Can this be moved into WordPress later?</summary>
+              <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p itemprop="text">Yes. The content blocks are designed to move cleanly into WordPress via a template, WP-CLI, or the REST API.</p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer section" aria-label="Site footer">
+        <div class="footer-grid">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h3>Talk to a human</h3>
+            <p class="lead">
+              Email <a href="mailto:hello@example.com" data-contact-email>hello@example.com</a>
+              or use the intake form above.
+            </p>
+          </div>
+          <div>
+            <p class="eyebrow">Docs</p>
+            <h3>Public references</h3>
+            <ul class="footer-links">
+              <li><a href="README.md" data-doc-label="README">README</a></li>
+              <li><a href="docs/example-setups.md" data-doc-label="Example Setups">Example Setups</a></li>
+              <li><a href="docs/context-map.md" data-doc-label="Context Map">Context Map</a></li>
+              <li><a href="docs/roadmap.md" data-doc-label="Roadmap">Roadmap</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow">Repository</p>
+            <h3>Open-source core</h3>
+            <a class="button button-secondary" href="https://github.com/homgorn/clawstack" data-site-link="repo">
+              View on GitHub
+            </a>
+            <p class="footer-meta">Public API base: <code data-public-api-base>/api</code></p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

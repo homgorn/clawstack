@@ -1,0 +1,42 @@
+{
+  "$schema": "./openclaw.schema.json",
+  "gateway": {
+    "bind": "loopback",
+    "port": 18789,
+    "auth": {
+      "required": true,
+      "secret": "${OPENCLAW_GATEWAY_SECRET}"
+    }
+  },
+  "env": {
+    "file": "~/.openclaw/.env"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openrouter/meta-llama/llama-3.3-70b-instruct:free",
+        "fallbacks": [
+          "openrouter/openai/gpt-oss-120b:free",
+          "openrouter/google/gemini-2.5-flash:free"
+        ]
+      },
+      "heartbeat": {
+        "model": "openrouter/google/gemini-2.5-flash:free",
+        "interval": 3600,
+        "directPolicy": "block"
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "workspace": "~/.openclaw/workspace"
+      }
+    ]
+  },
+  "skills": {
+    "autoLoad": true,
+    "directory": "~/.openclaw/workspace/skills",
+    "sandboxFirstRun": true
+  }
+}
