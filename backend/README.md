@@ -102,4 +102,5 @@ You can inspect the current setup or recent leads without calling the API manual
 python -m clawstack_backend.cli site-config
 python -m clawstack_backend.cli leads --limit 20
 python -m clawstack_backend.cli leads --limit 20 --json
+python -m clawstack_backend.cli offers
 ```

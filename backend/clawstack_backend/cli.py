@@ -5,6 +5,7 @@ import json
 from typing import Sequence
 
 from .config import load_settings
+from .site_config import build_site_config
 from .storage import IntakeStore
 
 
@@ -18,6 +19,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     config = subparsers.add_parser("site-config", help="Show public site config")
     config.add_argument("--json", action="store_true", dest="as_json")
+
+    offers = subparsers.add_parser("offers", help="Show public offers")
+    offers.add_argument("--json", action="store_true", dest="as_json")
 
     return parser
 
@@ -62,6 +66,32 @@ def run_site_config(as_json: bool) -> int:
     return 0
 
 
+def run_offers(as_json: bool) -> int:
+    settings = load_settings()
+    offers = build_site_config(settings).offers
+    if as_json:
+        print(
+            json.dumps(
+                [offer.model_dump() for offer in offers],
+                ensure_ascii=True,
+                indent=2,
+            )
+        )
+        return 0
+    for offer in offers:
+        print(
+            " | ".join(
+                [
+                    offer.slug,
+                    offer.title,
+                    offer.price_label,
+                    offer.kind,
+                ]
+            )
+        )
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -69,6 +99,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_leads(limit=args.limit, as_json=args.as_json)
     if args.command == "site-config":
         return run_site_config(as_json=args.as_json)
+    if args.command == "offers":
+        return run_offers(as_json=args.as_json)
     parser.error("unknown command")
     return 2
 

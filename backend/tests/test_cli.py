@@ -53,3 +53,15 @@ def test_cli_site_config(monkeypatch, capsys) -> None:
 
     assert exit_code == 0
     assert "public_site_url=https://clawstack.example" in output
+
+
+def test_cli_offers_json(monkeypatch, capsys) -> None:
+    monkeypatch.setenv("CLAWSTACK_PUBLIC_SITE_URL", "https://clawstack.example")
+    monkeypatch.setenv("CLAWSTACK_PUBLIC_API_URL", "https://clawstack.example/api")
+
+    exit_code = main(["offers", "--json"])
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    payload = json.loads(output)
+    assert any(item["slug"] == "diy-free" for item in payload)
